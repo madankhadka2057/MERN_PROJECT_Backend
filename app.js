@@ -29,7 +29,7 @@ app.use("/api/products",productRoute)
 app.use("/api/admin",adminUserRoute)
 app.use("/api/reviews",userReviewsRoute)
 app.use("/api/profile",profileRoute)
-app.use("/api/",cartRoute)
+app.use("/api/cart",cartRoute)
 // app.post("/register",registerUser)//register user api
 // app.post("/login",loginUser)//login api
 // app.post("/forgetPassword",forgetUser)//forget password api
