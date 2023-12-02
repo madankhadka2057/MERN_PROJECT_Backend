@@ -1,5 +1,4 @@
 const multer = require("multer");
-
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //check the if mimetype of file

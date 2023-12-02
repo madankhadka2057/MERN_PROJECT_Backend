@@ -17,6 +17,7 @@ const productRoute=require("./routes/admin/productRoute")
 const adminUserRoute=require('./routes/admin/adminUsersRoute')
 const userReviewsRoute=require("./routes/user/userReviewsRoute")
 const profileRoute=require("./routes/user/profileRoute")
+const cartRoute=require('./routes/user/cartRoute')
 app.get("/",(req,res)=>{
     res.json({
         code:2000,
@@ -28,6 +29,7 @@ app.use("/api/products",productRoute)
 app.use("/api/admin",adminUserRoute)
 app.use("/api/reviews",userReviewsRoute)
 app.use("/api/profile",profileRoute)
+app.use("/api/",cartRoute)
 // app.post("/register",registerUser)//register user api
 // app.post("/login",loginUser)//login api
 // app.post("/forgetPassword",forgetUser)//forget password api
