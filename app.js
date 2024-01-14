@@ -5,7 +5,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static("./uploads"))//give access to see this folder throw url.static("./")for access all folders
 const { createConnection } = require("./database/database");
-app.use(cors())
+app.use(cors({
+    origin:'*'
+}))
 require('dotenv').config();
 const PORT=process.env.PORT;
 createConnection(process.env.MONGO_URL);
