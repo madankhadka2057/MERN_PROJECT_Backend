@@ -1,43 +1,54 @@
 const Order = require("../../../model/orderSchema");
+const User = require("../../../model/userModel");
 
 //create Order!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.createOrder = async (req, res) => {
-  const userId = req.user.userId;
-  console.log(req.body);
+  const userId = req.user._id;
+  // console.log(req.body);
   //   return
-  const { shoppingAddress, items, totalAmount, paymentDetails } = req.body;
-  if (!shoppingAddress || !items || !totalAmount || !paymentDetails) {
+  const { shoppingAddress, items, totalAmount, paymentDetails,phoneNumber } = req.body;
+  if (!shoppingAddress || !items || !totalAmount || !paymentDetails||!phoneNumber) {
     return res.status(400).json({
       message:
-        "Please provide shoppingAddress,items,totalAmount,paymentDetails",
+        "Please provide shoppingAddress,items,totalAmount,paymentDetails,phoneNumber",
     });
   }
-  await Order.create({
+ const createOrder= await Order.create({
     user: userId,
     shoppingAddress,
     items,
     totalAmount,
     paymentDetails,
+    phoneNumber
   });
+  // console.log("userId from createOrder",userId)
+  const user=await User.findById(userId)
+  user.cart=[]
+  await user.save()
+  // console.log("hello",user)
   res.status(200).json({
+    data:createOrder,
     message: "Order created successfully",
   });
 };
 //get My order only!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.getMyOrders = async (req, res) => {
-  const userId = req.user.userId;
+  
+  const userId = req.user._id;
   const orders = await Order.find({ user: userId }).populate({
     path: "items.product",
     model: "Product",
     select:
       "-productStockQty -createdAt -updatedAt -reviews -__v -paymentDetails ",
   });
+  console.log("My orders",orders)
   if (orders.length == 0) {
     return res.status(404).json({
       message: "No orders found",
       data: [],
     });
   }
+ 
   res.status(200).json({
     message: "Orders Fetched Successfully",
     data: orders,

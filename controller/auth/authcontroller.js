@@ -17,7 +17,7 @@ exports.registerUser = async (req, res) => {
       message: "User with this email already registred",
     });
   }
-  await User.create({
+  const userData=await User.create({
     userName: username,
     userPhoneNumber: phoneNumber,
     userEmail: email,
@@ -25,6 +25,7 @@ exports.registerUser = async (req, res) => {
   });
   res.status(201).json({
     message: "Successfully Registered",
+    data:userData
   });
 };
 //login user!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -50,8 +51,9 @@ exports.loginUser = async (req, res) => {
     });
 
     res.status(200).json({
+      data:userFound,
       message: "User logged in successfully",
-      data:token,
+      token:token,
     });
   } else {
     res.status(404).json({

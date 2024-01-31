@@ -32,7 +32,16 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    cart: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    cart: [{
+      quantity:{
+        type:Number,
+        require:true,
+      },
+      product:{
+        type: Schema.Types.ObjectId,
+        ref: "Product"
+      }
+    }],
   },
   {
     timestamps: true,
