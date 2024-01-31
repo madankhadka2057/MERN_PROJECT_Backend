@@ -77,6 +77,11 @@ exports.updateMyOrder = async (req, res) => {
         message:"You don't have permission to update this order "
     })
   }
+  if(existingOrder.orderStatus!=="Pending"){
+      return res.status(400).json({
+          message:"You can't cancel this order it is not Pending"
+      })
+  }
   if (existingOrder.orderStatus == "Ontheway") {
     return res.status(400).json({
       message: "You cannot update order when it is on the way",
@@ -84,15 +89,14 @@ exports.updateMyOrder = async (req, res) => {
   }
   const updatedOrder=await Order.findByIdAndUpdate(id,{shoppingAddress,items},{new:true});
   res.status(200).json({
-    message:"Order upsated Successfully",
+    message:"Order updated Successfully",
     data:updatedOrder
   })
 };
 //delete order!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.deleteMyOrder=async(req,res)=>{
-    const {userId}=req.user.id
+    const userId=req.user._id
     const {id}=req.params
-
     //check if order exists or not
     const order=await Order.findById(id)
     if(!order){
@@ -100,13 +104,21 @@ exports.deleteMyOrder=async(req,res)=>{
             message:"No order with that id"
         })
     }
-    if(order.user!==userId){
+    console.log(userId)
+    if(order.user.toString()!==userId.toString()){
+       
         return res.status(400).json({
             message:"You don't have permission to delete this order"
         })
     }
+    if(order.orderStatus!=="Pending"){
+      console.log(order)
+        return res.status(400).json({
+            message:"You can't cancel this order it is not Pending"
+        })
+    }
     await Order.findByIdAndDelete(id)
-    res.json(200).json({
+    res.status(200).json({
         message:"Order deleted Successfully",
         data:null
     })
@@ -122,12 +134,14 @@ exports.cancelOrder=async(req,res)=>{
             message:"No order with that id"
         })
     }
-    if(order.user!==userId){
+    if(order.user!=userId){
+      console.log("Mdn",order.user,userId)
         return res.status(400).json({
             message:"You don't have permission to cancelled this order"
         })
     }
-    if(order.status!=="pending"){
+    if(order.orderStatus!=="Pending"){
+      console.log(order)
         return res.status(400).json({
             message:"You can't cancel this order it is not Pending"
         })
