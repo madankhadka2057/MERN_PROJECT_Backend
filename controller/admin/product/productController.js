@@ -3,6 +3,8 @@ const fs = require("fs");
 //createProduct Api!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.createProduct = async (req, res) => {
   try {
+    console.log(process.env.BACKEND_URL)
+    console.log(req.file)
     const file = req.file;
     if (!file) {
       filePath =
@@ -35,7 +37,7 @@ exports.createProduct = async (req, res) => {
       productPrice,
       productStockQty,
       productStatus,
-      productImage: "http://localhost:3000/" + filePath,
+      productImage: process.env.BACKEND_URL + filePath,
     });
     res.status(200).json({
       message: "Product created successfully",
@@ -124,7 +126,7 @@ exports.editProduct = async (req, res) => {
       productStatus,
       productImage:
         req.file && req.file.filename
-          ? "http://localhost:3000/" + req.file.filename
+          ? process.env.BACKEND_URL + req.file.filename
           : oldProductImage,
     },
     {
