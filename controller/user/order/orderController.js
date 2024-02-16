@@ -111,18 +111,20 @@ exports.deleteMyOrder=async(req,res)=>{
             message:"You don't have permission to delete this order"
         })
     }
-    if(order.orderStatus!=="Pending"){
-      console.log(order)
+    if([ "Complete"].includes(order.orderStatus)){
+      console.log(order.orderStatus)
         return res.status(400).json({
-            message:"You can't cancel this order it is not Pending"
+            message:"Hey!!! You can't delete this order it is not Pending"
         })
     }
     await Order.findByIdAndDelete(id)
     res.status(200).json({
-        message:"Order deleted Successfully",
+        message:"Hey!!! Order deleted Successfully",
         data:null
     })
-}//cancel order!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
+
+//cancel order!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.cancelOrder=async(req,res)=>{
     const {id}=req.body
     const userId=req.user.id    
