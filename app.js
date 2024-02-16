@@ -29,6 +29,7 @@ app.get("/",(req,res)=>{
         message:"I am activate"
     })
 })
+
 app.use("/api/auth",authRoute)
 app.use("/api/products",productRoute)
 app.use("/api/admin",adminUserRoute)
