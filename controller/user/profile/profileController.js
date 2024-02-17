@@ -2,7 +2,8 @@ const User = require("../../../model/userModel");
 const bcrypt=require("bcryptjs")
 //get my profile controller
 exports.getMyProfile = async (req, res) => {
-  const userId = req.user.userId;
+  // const userId = req.user.userId;
+  const userId=req.user.id
   console.log(userId)
   const myProfile = await User.findById(userId);
   //send response
