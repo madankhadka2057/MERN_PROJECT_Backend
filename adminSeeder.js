@@ -2,12 +2,12 @@ const User = require("./model/userModel");
 const bcrypt=require("bcryptjs")
 const adminSeeder=async()=>{
     //admin seeding
-
-  //check whether admin exist or not
-  const isAdminExist = await User.findOne({
+   const data={
     userEmail: "madankhadka2057@gmail.com",
     role: "admin",
-  });
+   }
+  //check whether admin exist or not
+  const isAdminExist = await User.findOne(data);
   if (!isAdminExist) {
     await User.create({
       userEmail: "madankhadka2057@gmail.com",

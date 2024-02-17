@@ -111,7 +111,7 @@ exports.deleteMyOrder=async(req,res)=>{
             message:"You don't have permission to delete this order"
         })
     }
-    if([ "Complete"].includes(order.orderStatus)){
+    if([ "Delivered","Ontheway","Preparation"].includes(order.orderStatus)){
       console.log(order.orderStatus)
         return res.status(400).json({
             message:"Hey!!! You can't delete this order it is not Pending"
@@ -128,7 +128,6 @@ exports.deleteMyOrder=async(req,res)=>{
 exports.cancelOrder=async(req,res)=>{
     const {id}=req.body
     const userId=req.user.id    
-    const {status}=req.body
     //check if order exists or not
     const order=await Order.findById(id)
     if(!order){
@@ -137,7 +136,7 @@ exports.cancelOrder=async(req,res)=>{
         })
     }
     if(order.user!=userId){
-      console.log("Mdn",order.user,userId)
+      // console.log("Mdn",order.user,userId)
         return res.status(400).json({
             message:"You don't have permission to cancelled this order"
         })

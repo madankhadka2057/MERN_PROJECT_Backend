@@ -3,6 +3,7 @@ const bcrypt=require("bcryptjs")
 //get my profile controller
 exports.getMyProfile = async (req, res) => {
   const userId = req.user.userId;
+  console.log(userId)
   const myProfile = await User.findById(userId);
   //send response
   res.status(200).json({
