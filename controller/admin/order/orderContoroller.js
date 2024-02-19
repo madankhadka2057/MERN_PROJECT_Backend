@@ -12,6 +12,7 @@ exports.getAllOrders = async (req, res) => {
       data: [],
     });
   }
+  // console.log(orders)
   res.status(200).json({
     message: "Orders Fetched Successfully",
     data: orders,

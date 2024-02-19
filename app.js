@@ -37,7 +37,7 @@ app.use("/api/reviews",userReviewsRoute)
 app.use("/api/profile",profileRoute)
 app.use("/api/cart",cartRoute)
 app.use("/api/orders",orderRoute)
-app.use("/api/orders",adminOrderRoute)
+app.use("/api/admin/orders",adminOrderRoute)
 app.use("/api/payment",paymentRoute)
 // app.use("/api/order",orderRoute)
 // app.post("/register",registerUser)//register user api

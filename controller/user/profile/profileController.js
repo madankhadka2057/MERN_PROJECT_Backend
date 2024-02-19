@@ -4,7 +4,6 @@ const bcrypt=require("bcryptjs")
 exports.getMyProfile = async (req, res) => {
   // const userId = req.user.userId;
   const userId=req.user.id
-  console.log(userId)
   const myProfile = await User.findById(userId);
   //send response
   res.status(200).json({
@@ -15,7 +14,7 @@ exports.getMyProfile = async (req, res) => {
 //update my profile controller
 const updatedData = (exports.updateMyProfile = async (req, res) => {
   const { userName, userEmail, userPhoneNumber } = req.body;
-  const userId = req.user.userId;
+  const userId = req.user.id;
   //update profile
   await User.findByIdAndUpdate(
     userId,
@@ -32,7 +31,7 @@ const updatedData = (exports.updateMyProfile = async (req, res) => {
 });
 //delete my profile
 exports.deleteMyProfile = async (req, res) => {
-  const userId = req.user.userId;
+  const userId = req.user.id;
   await User.findByIdAndDelete(userId);
   res.status(200).json({
     message: "Profile deleted successfully",

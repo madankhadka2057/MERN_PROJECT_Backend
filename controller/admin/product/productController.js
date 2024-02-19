@@ -4,7 +4,7 @@ const fs = require("fs");
 exports.createProduct = async (req, res) => {
   try {
     console.log(process.env.BACKEND_URL)
-    console.log(req.file)
+    // console.log(req.file)
     const file = req.file;
     if (!file) {
       filePath =
