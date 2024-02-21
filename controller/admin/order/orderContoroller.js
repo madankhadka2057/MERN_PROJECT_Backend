@@ -5,7 +5,7 @@ exports.getAllOrders = async (req, res) => {
   const orders = await Order.find().populate({
     path: "items.product",
     model: "Product",
-  });
+  }).populate('user');
   if (orders.length == 0) {
     return res.status(404).json({
       message: "No orders found",
@@ -39,7 +39,7 @@ exports.updateOrderStatus=async(req,res)=>{
   const {id}=req.params
   const {orderStatus}=req.body
 
-  if(!orderStatus||! ["Pending", "Delivered", "Cancelled", "Ontheway", "Preparation"].includes(orderStatus.toLowerCase())){
+  if(!orderStatus||! ["pending", "delivered", "cancelled", "ontheway", "preparation"].includes(orderStatus.toLowerCase())){
     return res.status(400).json({
       message:"Order status is invalide or should be provided"
     })
@@ -52,7 +52,11 @@ exports.updateOrderStatus=async(req,res)=>{
   }
   const updatedOrder=await Order.findByIdAndUpdate(id,{
     orderStatus
-  },{new:true})
+  },{new:true}).populate({
+    path: "items.product",
+    model: "Product",
+  }).populate('user');
+  
   res.status(200).json({
     message:"Order sytatus updated successsfully",
     data:updatedOrder
