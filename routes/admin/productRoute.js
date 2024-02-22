@@ -26,7 +26,7 @@ router
 router
   .route("/:id")
   .get(catchAsync(getProduct))
-  .delete(catchAsync(deleteProduct))
+  .delete(isAuthenticated,restrictTo("admin"),catchAsync(deleteProduct))
   .patch
     (isAuthenticated,
     restrictTo("admin"),

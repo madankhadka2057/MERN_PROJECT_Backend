@@ -1,4 +1,5 @@
 const Order = require("../../../model/orderSchema");
+const Product = require("../../../model/productModel");
 
 //get All order of user!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.getAllOrders = async (req, res) => {
@@ -56,10 +57,28 @@ exports.updateOrderStatus=async(req,res)=>{
     path: "items.product",
     model: "Product",
   }).populate('user');
+  let newdata
+  if(orderStatus==="Delivered"){
+    newdata=updatedOrder.items.map((items)=>{
+
+      return{ 
+        quantity:items.quantity,
+        productStockQty:items.product.productStockQty,
+        productId:items.product._id
+      }
+    })
+    for(var i=0; i<newdata.length; i++){
+      console.log(newdata[i].productStockQty,newdata[i].quantity)
+      await Product.findByIdAndUpdate(newdata[0].productId,{
+        productStockQty:newdata[i].productStockQty-newdata[i].quantity
+      })
+    }
+    
+  }
   
   res.status(200).json({
     message:"Order sytatus updated successsfully",
-    data:updatedOrder
+    data:updatedOrder,
   })
 }
 //update payment status
@@ -83,7 +102,6 @@ exports.updatePaymentStatus=async(req,res)=>{
     path: "items.product",
     model: "Product",
   }).populate('user');
-  
   res.status(200).json({
     message:"Order Payment updated successsfully",
     data:updatedPaymentOrder

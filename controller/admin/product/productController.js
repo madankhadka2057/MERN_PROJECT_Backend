@@ -58,7 +58,9 @@ exports.deleteProduct = async (req, res) => {
   }
   const oldData=await Product.findById(id)
   const oldImage=oldData.productImage
+  // console.log(oldImage)
   const actualOldImagePath=oldImage.slice(22)
+  // console.log(actualOldImagePath)
   await Product.findByIdAndDelete(id);
   fs.unlink(`./uploads/${actualOldImagePath}`,(err)=>{
     if(err){
