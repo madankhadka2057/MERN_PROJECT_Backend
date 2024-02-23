@@ -2,6 +2,7 @@ const {
   createProduct,
   deleteProduct,
   editProduct,
+  updateProductStatus,
 } = require("../../controller/admin/product/productController");
 const { getProducts, getProduct } = require("../../controller/global/globalController");
 const isAuthenticated = require("../../middleware/isAuthenticated");
@@ -32,6 +33,7 @@ router
     restrictTo("admin"),
     upload.single("productImage"),
     catchAsync(editProduct))
+router.route("/updateproductstatus/:id").patch(isAuthenticated,restrictTo("admin"),catchAsync(updateProductStatus))
 // router.route("/delete/:id")
 
 module.exports = router;

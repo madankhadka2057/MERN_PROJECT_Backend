@@ -141,3 +141,34 @@ exports.editProduct = async (req, res) => {
     data:datas,
   });
 };
+
+//update produte Status,
+exports.updateProductStatus=async(req,res)=>{
+  const id=req.params.id
+  // console.log(id)
+  const {productStatus}=req.body
+  // console.log(productStatus)
+  if(!id){
+    return res.status(400).json({
+      message:"Please Provide Id"
+    })
+  }
+  if(!productStatus||!["available","unavailable"].includes(productStatus.toLowerCase())){
+   return res.status(400).json({
+      message:"Invalide prouductStatus"
+    })
+  }
+  const checkExist=await Product.findById(id)
+  // console.log(checkExist)
+  if(!checkExist===0){
+   return res.status(404).json({
+      message:"No data found with this id"
+    })
+  }
+  const updatedData=await Product.findByIdAndUpdate(id,{
+    productStatus
+  },{new:true})
+  res.status(200).json({
+    newData:updatedData
+  })
+}
