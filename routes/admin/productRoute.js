@@ -3,6 +3,8 @@ const {
   deleteProduct,
   editProduct,
   updateProductStatus,
+  updateProductQtyAndPrice,
+  getOrderOfProduct,
 } = require("../../controller/admin/product/productController");
 const { getProducts, getProduct } = require("../../controller/global/globalController");
 const isAuthenticated = require("../../middleware/isAuthenticated");
@@ -34,6 +36,8 @@ router
     upload.single("productImage"),
     catchAsync(editProduct))
 router.route("/updateproductstatus/:id").patch(isAuthenticated,restrictTo("admin"),catchAsync(updateProductStatus))
+router.route("/updateqtyandprice/:id").patch(isAuthenticated,restrictTo("admin"),catchAsync(updateProductQtyAndPrice))
+router.route("/orderOfProduct/:id").get(isAuthenticated,restrictTo("admin"),catchAsync(getOrderOfProduct))
 // router.route("/delete/:id")
 
 module.exports = router;
