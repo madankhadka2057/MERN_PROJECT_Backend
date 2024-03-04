@@ -85,7 +85,8 @@ exports.forgetUser=async(req,res)=>{
             message:`your otp is:-${otp}`,
         })
         res.json({
-            message:"Email sent successfully"
+            message:"Otp sent successfully",
+            data:userExist[0].userEmail
         })
 }
 //verify otp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
