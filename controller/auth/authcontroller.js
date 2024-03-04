@@ -28,6 +28,8 @@ exports.registerUser = async (req, res) => {
     data:userData
   });
 };
+
+
 //login user!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
