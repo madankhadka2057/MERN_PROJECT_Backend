@@ -23,7 +23,7 @@ exports.registerUser = async (req, res) => {
     userEmail: email,
     userPassword: bcrypt.hashSync(password, 10),
   });
-  res.status(201).json({
+  res.status(200).json({
     message: "Successfully Registered",
     data:userData
   });

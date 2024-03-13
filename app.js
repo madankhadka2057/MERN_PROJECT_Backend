@@ -41,6 +41,8 @@ app.get("/", (req, res) => {
   });
 });
 
+
+
 app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
 app.use("/api/admin", adminUserRoute);
@@ -65,7 +67,7 @@ let onlineUsers = [];
 const addToOnlineUsers = (socketId, userId, role) => {
   onlineUsers = onlineUsers.filter((user) => user.userId !== userId);
   onlineUsers.push({ socketId, userId, role });
-  console.log(onlineUsers);
+  // console.log(onlineUsers);
 };
 
 io.on("connection", async (socket) => {
@@ -110,39 +112,3 @@ io.on("connection", async (socket) => {
     }
   });
 });
-// let onlineUsers=[]
-// const addOnlineUsers=(socketId,userId,role)=>{
-//      const userExist=onlineUsers.filter((user)=>{
-//         console.log(user.userId.equals(userId))
-//         console.log(user.userId,userId)
-//         return user.userId.equals(userId)
-//      })
-//      console.log("existing user",userExist)
-//      if(userExist.length==0){
-//          onlineUsers.push({socketId,userId,role})
-//      }
-//     console.log("new user",onlineUsers)
-// }
-// io.on("connection",async(socket)=>{
-//    const token=socket.handshake.auth.token
-// //    console.log(token)
-//     let activeUser
-//     if(token){
-//         activeUser=await tokenVerify(token)
-//     }
-//     if(activeUser){
-//         addOnlineUsers(socket.id,activeUser._id,activeUser.role)
-//     }
-//   socket.on("changeOrderStatus",({status,orderId,userId})=>{
-//     const findUser=onlineUsers.find((user)=>{
-
-//         return user.userId==userId
-//     })
-//    if(findUser){
-//         console.log("Find User",findUser)
-//         io.to(findUser.socketId).emit("statusUpdated",{status:status,orderId:orderId})
-//    }else{
-//         console.log("User doesnt exist")
-//    }
-//   })
-// })

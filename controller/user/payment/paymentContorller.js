@@ -21,7 +21,7 @@ exports.initiateKhaltiPayment = async (req, res) => {
   }
   const data = {
     return_url: "http://localhost:5173/success",
-    website_url: "http://localhost:3000",
+    website_url: "http://localhost:3001",
     amount: amount*100,
     purchase_order_id: orderId,
     purchase_order_name: "Madan Khadka" + orderId,
@@ -36,10 +36,11 @@ exports.initiateKhaltiPayment = async (req, res) => {
       },
     }
   );
-  
+
   order=await Order.findById(orderId)
   order.paymentDetails.pidx=response.data.pidx
   await order.save()
+  
   res.status(200).json({
     message:"Payment Successfull",
     payment_url:response.data.payment_url
@@ -47,9 +48,10 @@ exports.initiateKhaltiPayment = async (req, res) => {
 };
 
 exports.verifyPidx = async (req, res) => {
+  console.log("Verifying Payment")
   const userId=req.user.id
   const pidx= req.body.pidx
-
+  console.log(userId, pidx)
   const response = await axios.post(
     "https://a.khalti.com/api/v2/epayment/lookup/",
     { pidx: pidx },

@@ -64,7 +64,7 @@ exports.updateMyOrder = async (req, res) => {
         message:"Please provide shoppingAddress,items"
     })
   }
-  //get order of abode id
+  //get order of aode id
   const existingOrder = await Order.findById(id);
   if (!existingOrder) {
     return res.status(404).json({
@@ -79,7 +79,7 @@ exports.updateMyOrder = async (req, res) => {
   }
   if(existingOrder.orderStatus!=="Pending"){
       return res.status(400).json({
-          message:"You can't cancel this order it is not Pending"
+          message:"You can't update this order it is not Pending"
       })
   }
   if (existingOrder.orderStatus == "Ontheway") {
@@ -93,6 +93,7 @@ exports.updateMyOrder = async (req, res) => {
     data:updatedOrder
   })
 };
+
 //delete order!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 exports.deleteMyOrder=async(req,res)=>{
     const userId=req.user._id
@@ -119,7 +120,7 @@ exports.deleteMyOrder=async(req,res)=>{
     }
     await Order.findByIdAndDelete(id)
     res.status(200).json({
-        message:"Hey!!! Order deleted Successfully",
+        message:"Your order deleted successfully",
         data:null
     })
 }
