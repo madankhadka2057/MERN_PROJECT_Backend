@@ -59,7 +59,7 @@ const server = app.listen(PORT, () => {
 });
 
 const io = new Server(server, {
-  cors: "http://localhost:3001/",
+  cors: "https://foodorder-8jma.onrender.com/",
 });
 
 let onlineUsers = [];

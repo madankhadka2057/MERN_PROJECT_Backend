@@ -41,7 +41,7 @@ exports.getMyOrders = async (req, res) => {
     select:
       "-productStockQty -createdAt -updatedAt -reviews -__v -paymentDetails ",
   });
-  console.log("My orders",orders)
+  // console.log("My orders",orders)
   if (orders.length == 0) {
     return res.status(404).json({
       message: "No orders found",
@@ -105,7 +105,7 @@ exports.deleteMyOrder=async(req,res)=>{
             message:"No order with that id"
         })
     }
-    console.log(userId)
+    // console.log(userId)
     if(order.user.toString()!==userId.toString()){
        
         return res.status(400).json({
@@ -113,7 +113,7 @@ exports.deleteMyOrder=async(req,res)=>{
         })
     }
     if([ "Delivered","Ontheway","Preparation"].includes(order.orderStatus)){
-      console.log(order.orderStatus)
+      // console.log(order.orderStatus)
         return res.status(400).json({
             message:"Hey!!! You can't delete this order it is not Pending"
         })
@@ -143,7 +143,7 @@ exports.cancelOrder=async(req,res)=>{
         })
     }
     if(order.orderStatus!=="Pending"){
-      console.log(order)
+      // console.log(order)
         return res.status(400).json({
             message:"You can't cancel this order it is not Pending"
         })

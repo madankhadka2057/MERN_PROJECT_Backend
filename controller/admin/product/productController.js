@@ -100,7 +100,7 @@ exports.editProduct = async (req, res) => {
     });
   }
   const oldData = await Product.findById(id);
-  console.log(oldData);
+  // console.log(oldData);
   if (!oldData) {
     return res.status(404).json({
       message: "No data found with id",

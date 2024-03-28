@@ -68,7 +68,7 @@ exports.updateOrderStatus=async(req,res)=>{
       }
     })
     for(var i=0; i<newdata.length; i++){
-      console.log(newdata[i].productStockQty,newdata[i].quantity)
+      // console.log(newdata[i].productStockQty,newdata[i].quantity)
       await Product.findByIdAndUpdate(newdata[0].productId,{
         productStockQty:newdata[i].productStockQty-newdata[i].quantity
       })

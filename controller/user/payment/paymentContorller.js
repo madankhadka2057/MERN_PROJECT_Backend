@@ -51,7 +51,7 @@ exports.verifyPidx = async (req, res) => {
   console.log("Verifying Payment")
   const userId=req.user.id
   const pidx= req.body.pidx
-  console.log(userId, pidx)
+  // console.log(userId, pidx)
   const response = await axios.post(
     "https://a.khalti.com/api/v2/epayment/lookup/",
     { pidx: pidx },
