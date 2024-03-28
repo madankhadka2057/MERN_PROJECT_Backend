@@ -8,8 +8,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./uploads")); //give access to see this folder throw url.static("./")for access all folders
 const { createConnection } = require("./database/database");
 
-const jwt = require("jsonwebtoken");
-const { promisify } = require("util");
+// const jwt = require("jsonwebtoken");
+// const { promisify } = require("util");
 const { Server } = require("socket.io");
 
 app.use(
