@@ -20,8 +20,8 @@ exports.initiateKhaltiPayment = async (req, res) => {
     })
   }
   const data = {
-    return_url: "http://localhost:5173/success",
-    website_url: "http://localhost:3001",
+    return_url: "https://onlinefood-kfmlpw8hk-madankhadka2057s-projects.vercel.app/success",
+    website_url: "https://foodorder-8jma.onrender.com",
     amount: amount*100,
     purchase_order_id: orderId,
     purchase_order_name: "Madan Khadka" + orderId,
