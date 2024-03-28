@@ -48,7 +48,7 @@ exports.initiateKhaltiPayment = async (req, res) => {
 };
 
 exports.verifyPidx = async (req, res) => {
-  console.log("Verifying Payment")
+
   const userId=req.user.id
   const pidx= req.body.pidx
   // console.log(userId, pidx)
