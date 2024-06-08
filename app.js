@@ -60,7 +60,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://foodorder-8jma.onrender.com", "*"]
+    origin: ["https://foodorder-8jma.onrender.com","https://onlinefood-two.vercel.app/","*"]
   }
 });
 
