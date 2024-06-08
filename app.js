@@ -14,7 +14,7 @@ const { Server } = require("socket.io");
 
 app.use(
   cors({
-    origin: "*",
+    origin: "*"
   })
 );
 require("dotenv").config();
@@ -59,7 +59,9 @@ const server = app.listen(PORT, () => {
 });
 
 const io = new Server(server, {
-  cors: "https://foodorder-8jma.onrender.com/",
+  cors: {
+    origin: ["https://foodorder-8jma.onrender.com", "*"]
+  }
 });
 
 let onlineUsers = [];
